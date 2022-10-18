@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workspaceFilter version="1.0">
+    <filter root="/conf/vishnuwknd" mode="merge"/>
+    <filter root="/content/vishnuwknd" mode="merge"/>
+    <filter root="/content/dam/vishnuwknd" mode="merge"/>
+    <filter root="/content/experience-fragments/vishnuwknd" mode="merge"/>
+</workspaceFilter>
