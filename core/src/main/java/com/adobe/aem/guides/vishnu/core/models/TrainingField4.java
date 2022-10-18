@@ -8,6 +8,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
@@ -31,7 +32,10 @@ public class TrainingField4 implements TrainingField4Interface {
 	
 	@OSGiService
 	DemoService demoServiceA;
-
+	
+	@Inject @Via("resource")
+	private String titleservices;
+	
 	@Override
 	public String getPa() {
 		String pagestotal="";
@@ -40,6 +44,10 @@ public class TrainingField4 implements TrainingField4Interface {
 		while (pages.hasNext()) {
 			pagestotal=pagestotal+"\n"+pages.next().getTitle();
 		}
-		return pagestotal;
+		return "Hello";
+	}
+	
+	public String getTitle() {
+		return titleservices;
 	}
 }
