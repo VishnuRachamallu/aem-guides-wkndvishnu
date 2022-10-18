@@ -1,11 +1,22 @@
-Title : ${properties.title1}
-<br>Text Area : ${properties.textArea}
-<br>Types: ${properties.type}
-<br>Default Types:${properties.typesone}
-<br>Link URL:${properties.linkURL}
-<br>checkBox:${properties.checkbox1}
-<br>Password:${properties.password}
-<br>colour Field:${properties.colorfield}
-<br>Date Picker:${properties.datepicker}
-<br>date pricker not working to display 
-<br>Drop Down select :${properties.dropdown}
+<head data-sly-use.clientLib="${'/libs/granite/sightly/templates/clientlib.html'}">
+
+<!--/* for css+js */-->
+<meta data-sly-call="${clientLib.all @ categories='traininglib'}" data-sly-unwrap></meta>
+
+
+
+<div data-sly-use.var="com.adobe.aem.guides.vishnu.core.models.TrainingFields2">
+
+Title : ${var.title}
+<br>Text Area : ${var.textArea}
+<br>Types: ${var.type}
+<br>Default Types:${var.typesome}
+<br>Link URL:${var.linkURL}
+<br>checkBox:${var.checkbox1}
+<br>Password:${var.password}
+<br>color Field:${var.colourField}
+<br>Date Picker:${var.datePicker}
+<br>date picker display is working with sling models
+<br>Drop Down select :${var.dropDown}
+
+</div>
