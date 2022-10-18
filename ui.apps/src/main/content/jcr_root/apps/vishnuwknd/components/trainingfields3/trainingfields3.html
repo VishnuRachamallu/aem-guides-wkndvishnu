@@ -1,0 +1,22 @@
+<head data-sly-use.clientLib="${'/libs/granite/sightly/templates/clientlib.html'}">
+
+<!--/* for css+js */-->
+<meta data-sly-call="${clientLib.all @ categories='traininglib'}" data-sly-unwrap></meta>
+
+
+
+<div data-sly-use.var="${'com.adobe.aem.guides.vishnu.core.models.TrainingFields3' @ var1='Vishnu'}">
+Title : ${var.title}
+<br>Text Area : ${var.textArea}
+<br>Types: ${var.type}
+<br>Default Types:${var.typesome}
+<br>Link URL:${var.linkURL}
+<br>checkBox:${var.checkbox1}
+<br>Password:${var.password}
+<br>color Field:${var.colourField}
+<br>Date Picker:${var.datePicker}
+<br>Drop Down select :${var.dropDown}
+
+<br>Passed variable from  HTL: ${var.v1}
+<br>Page Title: ${var.pageTitle}
+</div>
