@@ -5,7 +5,7 @@ import java.util.Iterator;
 import com.day.cq.wcm.api.Page;
 
 public interface DemoService {
-	public Iterator<Page> getPages();
+	public String getPages();
 
 	public String getServiceData();
 }
