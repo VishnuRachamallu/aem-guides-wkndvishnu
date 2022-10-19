@@ -12,42 +12,36 @@ import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.Self;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
-import org.osgi.service.component.annotations.Reference;
 
 import com.adobe.aem.guides.vishnu.core.models.interfa.TrainingField4Interface;
 import com.adobe.aem.guides.vishnu.core.serviceinterface.DemoService;
 import com.day.cq.wcm.api.Page;
 
-@Model(adaptables = SlingHttpServletRequest.class,
-adapters = TrainingField4Interface.class,
-defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+@Model(adaptables = SlingHttpServletRequest.class, adapters = TrainingField4Interface.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class TrainingField4 implements TrainingField4Interface {
 
 	@SlingObject
 	ResourceResolver resourceResolver;
-	
-	
+
 	@Self
 	SlingHttpServletRequest slingHttpServletRequest;
-	
+
 	@OSGiService
 	DemoService demoServiceA;
-	
-	@Inject @Via("resource")
+
+	@Inject
+	@Via("resource")
 	private String titleservices;
-	
+
 	@Override
-	public String getPa() {
-		String pagestotal="";
-		Iterator<Page> pages=demoServiceA.getPages();
-		
-		while (pages.hasNext()) {
-			pagestotal=pagestotal+"\n"+pages.next().getTitle();
-		}
-		return "Hello";
+	public String getPagesList() {
+
+		return demoServiceA.getPages();
 	}
-	
+
+	@Override
 	public String getTitle() {
 		return titleservices;
 	}
+
 }

@@ -15,32 +15,34 @@ import com.adobe.em.guides.vishnu.core.utils.ResolverUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 
-@Component(service = DemoService.class,immediate = true)
+@Component(service = DemoService.class, immediate = true)
 public class DemoServiceAImpl implements DemoService {
 
-	private static final Logger LOG=LoggerFactory.getLogger(DemoServiceAImpl.class);
-	
+	private static final Logger LOG = LoggerFactory.getLogger(DemoServiceAImpl.class);
+
 	@Reference
 	ResourceResolverFactory resourceResolverFactory;
-	
-	
-	
+
 	@Override
-	public Iterator<Page> getPages() {
-		// TODO Auto-generated method stub
+	public String getPages() {
+		String pagepaths = "";
+
 		try {
-			ResourceResolver resolver=ResolverUtil.newResolver(resourceResolverFactory);
-			PageManager pageManager=resolver.adaptTo(PageManager.class);
-			Page page=pageManager.getPage("/content/we-retail/language-masters/en");
-			
-			Iterator<Page> pages=page.listChildren();
-			
+			ResourceResolver resourceResolver = ResolverUtil.newResolver(resourceResolverFactory);
+			PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
+			Page page = pageManager.getPage("/content/vishnuwknd/us/en");
+			Iterator<Page> pages = page.listChildren();
+
+			while (pages.hasNext()) {
+				pagepaths = pagepaths + pages.next().getTitle()+"\n";
+			}
+			return pagepaths;
 		} catch (LoginException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.info("\n Login Exception {} ", e.getMessage());
+			pagepaths = e.getMessage();
 		}
-		
-		return null;
+		return pagepaths;
+
 	}
 
 	@Override
