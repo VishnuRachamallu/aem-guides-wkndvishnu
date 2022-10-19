@@ -1,0 +1,33 @@
+<head
+	data-sly-use.clientLib="${'/libs/granite/sightly/templates/clientlib.html'}"></head>
+
+<!--/* for css+js */-->
+<meta data-sly-call="${clientLib.all @ categories='traininglib'}"
+	data-sly-unwrap></meta>
+
+<div data-sly-use.var="${'com.adobe.aem.guides.vishnu.core.models.AuthorBooksImpl'}">
+
+Author Name: ${var.authorName}
+<br>Author Books: ${var.authorBooks}
+<br>Author Books displayed using iteration: 
+<div data-sly-list.item=${var.authorBooks}>
+${item}<br>
+</div>
+
+=========using MAP=========
+<div data-sly-list.item="${var.bookDetailsWithMap}">
+<br>Book ${itemList.count}
+<br>Book Name : ${item.BOOKNAME}
+<br>Book Subject:${item.BOOKSUBJECT}
+<br>Book Publish Year:${item.PUBLISHYEAR}
+</div>
+=========using Bean=========
+<div data-sly-list.item="${var.bookDetailsWithBean}">
+<br>Book ${itemList.count}
+<br>Book Name:${item.bookName}
+<br>Publish Date:<b>${'MMM dd,yyyy' @ format=item.publishDate}</b>
+<br>copies:${item.copies}
+</div>
+
+</div>
+
