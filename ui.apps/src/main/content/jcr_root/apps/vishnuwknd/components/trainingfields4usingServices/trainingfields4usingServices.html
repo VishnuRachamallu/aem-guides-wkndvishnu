@@ -5,6 +5,12 @@
 
 
 <div data-sly-use.var="${'com.adobe.aem.guides.vishnu.core.models.TrainingField4'}">
-Title : ${var.title}
-<br>Pages :${var.pagesList}
+Text field used in Page : ${var.titleservices}
+
+<br>Child Pages titles with String: ${var.pagesTraining}
+<br>Child Pages titles with List: 
+<br>
+<div data-sly-list.item= ${var.titlesWithList}>
+<b>${item}</b><br>
+</div>
 </div>

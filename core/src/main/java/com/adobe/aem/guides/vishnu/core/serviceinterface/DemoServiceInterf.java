@@ -4,8 +4,10 @@ import java.util.Iterator;
 
 import com.day.cq.wcm.api.Page;
 
-public interface DemoService {
-	public String getPages();
+public interface DemoServiceInterf {
+	public String getPagesWithString();
 
 	public String getServiceData();
+
+	public Iterator<Page> getPagesWithItr();
 }
