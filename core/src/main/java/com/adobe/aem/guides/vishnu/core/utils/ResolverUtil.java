@@ -1,4 +1,4 @@
-package com.adobe.em.guides.vishnu.core.utils;
+package com.adobe.aem.guides.vishnu.core.utils;
 
 
 

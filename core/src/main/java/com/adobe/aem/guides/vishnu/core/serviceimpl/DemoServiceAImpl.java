@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.adobe.aem.guides.vishnu.core.serviceinterface.DemoService;
-import com.adobe.em.guides.vishnu.core.utils.ResolverUtil;
+import com.adobe.aem.guides.vishnu.core.utils.ResolverUtil;
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 
