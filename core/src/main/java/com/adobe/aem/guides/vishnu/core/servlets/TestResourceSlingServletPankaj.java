@@ -8,6 +8,7 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.propertytypes.ServiceDescription;
 
 //@SlingServlet(paths="/bin/trainingproject/testservlet")  --Felix SCR Annotation
 //@SlingServlet(resourceTypes="/bin/trainingproject/testservlet")  --Felix SCR Annotation
@@ -17,7 +18,6 @@ import org.osgi.service.component.annotations.Component;
 property = { 
 		"sling.servlet.resourceTypes=" + "vishnuwknd/components/page",
 		"sling.servlet.selectors=" + "sample" })
-
 public class TestResourceSlingServletPankaj extends SlingSafeMethodsServlet {
 
 	private static final long serialVersionUID = 1L;
