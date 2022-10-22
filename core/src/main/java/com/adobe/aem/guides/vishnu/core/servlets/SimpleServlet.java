@@ -40,7 +40,7 @@ import java.io.IOException;
 @SlingServletResourceTypes(
         resourceTypes="vishnuwknd/components/page",
         methods=HttpConstants.METHOD_GET,
-        extensions="wpp")
+        extensions="momos")
 @ServiceDescription("Simple Demo Servlet")
 public class SimpleServlet extends SlingSafeMethodsServlet {
 

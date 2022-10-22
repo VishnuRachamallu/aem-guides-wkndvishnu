@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -29,7 +30,7 @@ public class AuthorBooksImpl implements AuthorBooks {
 	@Default(values = "Jaffa")
 	private String author;
 
-	@ValueMapValue
+	@ValueMapValue @Named("booksauthor")
 	private List<String> books;
 
 	// author
