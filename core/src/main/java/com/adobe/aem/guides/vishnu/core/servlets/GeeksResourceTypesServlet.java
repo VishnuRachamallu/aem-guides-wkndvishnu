@@ -24,7 +24,7 @@ import java.util.List;
         methods = {HttpConstants.METHOD_GET},
         resourceTypes = "vishnuwknd/components/page",
         selectors = {"geeks","test"},
-        extensions = {"pdf","txt","xml"}
+        extensions = {"momos","txt","xml"}
 )
 public class GeeksResourceTypesServlet extends SlingAllMethodsServlet {
     private static final Logger LOG = LoggerFactory.getLogger(GeeksResourceTypesServlet.class);
