@@ -33,7 +33,7 @@ public class DemoUserServlet extends SlingSafeMethodsServlet {
 		response.setHeader("Content-Type", "text/html");
 		response.getWriter().print("<h1>Sling Servlet Called</h1>");
 		response.getWriter().print("title using resource :" + resource.getValueMap().get("title1", String.class));
-		response.getWriter().print("title using model :" + model);
+		response.getWriter().print("title using model :" + model.getTitle1());
 		response.getWriter().close();
 	}
 }

@@ -42,7 +42,7 @@
                                             granite:class=""
                                             jcr:primaryType="nt:unstructured"
                                             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                            name="./books"/>
+                                            name="./booksauthor"/>
                                     </books>
                                     <bookdetailswithmap
                                         jcr:primaryType="nt:unstructured"
