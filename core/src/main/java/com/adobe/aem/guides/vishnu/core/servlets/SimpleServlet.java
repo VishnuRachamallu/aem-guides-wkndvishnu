@@ -40,7 +40,7 @@ import java.io.IOException;
 @SlingServletResourceTypes(
         resourceTypes="vishnuwknd/components/page",
         methods=HttpConstants.METHOD_GET,
-        extensions="txt")
+        extensions="wpp")
 @ServiceDescription("Simple Demo Servlet")
 public class SimpleServlet extends SlingSafeMethodsServlet {
 
@@ -52,5 +52,6 @@ public class SimpleServlet extends SlingSafeMethodsServlet {
         final Resource resource = req.getResource();
         resp.setContentType("text/plain");
         resp.getWriter().write("Title = " + resource.getValueMap().get(JcrConstants.JCR_TITLE));
+        resp.getWriter().print("\n"+getClass());
     }
 }
