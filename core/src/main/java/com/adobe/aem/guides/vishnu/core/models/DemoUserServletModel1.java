@@ -10,7 +10,7 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 @Model(adaptables = Resource.class)
 public class DemoUserServletModel1 {
 
-	@Inject
+	@ValueMapValue
 	private String title1;
 
 	public String getTitle1() {
