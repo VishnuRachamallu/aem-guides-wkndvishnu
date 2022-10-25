@@ -14,7 +14,6 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Exporter;
-import org.apache.sling.models.annotations.ExporterOption;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
@@ -22,27 +21,16 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import com.adobe.aem.guides.vishnu.core.models.interfa.SampleExporter;
 import com.day.cq.wcm.api.Page;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 
-/*
-http://localhost:4502/content/vishnuwknd/us/exporter/exporterusingjson.infinity.json
-http://localhost:4502/content/vishnuwknd/us/exporter/exporterusingjson/jcr:content/root/container/container/exporterjsonmftraini.json
-http://localhost:4502/content/vishnuwknd/us/exporter/exporterusingjson/jcr:content/root/container/container/exporterjsonmftraini.infinity.json
 
-http://localhost:4502/content/vishnuwknd/us/exporter/exporterusingjson/jcr:content/root/container/container/exporterjsonmftraini.geeks.json
-*/
-@Model(adaptables = SlingHttpServletRequest.class, adapters = SampleExporter.class, resourceType = "vishnuwknd/components/exporterjsonmftraining", defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+///content/vishnuwknd/us/exporter/exporterusingxml/jcr:content/root/container/container/exporterxmlmftrainin
+@Model(adaptables = SlingHttpServletRequest.class,adapters = SampleExporter.class,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
+resourceType = "/apps/vishnuwknd/components/exporterxmlmftraining" )
 
-@Exporter(name = "jackson", extensions = "json", selector = "geeks", options = {
-		@ExporterOption(name = "SerializationFeature.WRAP_ROOT_VALUE", value = "true"),
-		@ExporterOption(name = "MapperFeature.SORT_PROPERTIES_ALPHABETICALLY", value = "true") })
+@Exporter(name = "VishnuXML",extensions = "xml")
 
-@JsonRootName("author-details")
-
-public class SampleExporterJson implements SampleExporter {
-
+public class SampleExporterXml implements SampleExporter{
 	@Inject
 	Resource componentResource;
 
@@ -129,5 +117,6 @@ public class SampleExporterJson implements SampleExporter {
 	public String TestVishnuFunction() {
 		return "Hello from user declared function";
 	}
+
 
 }
