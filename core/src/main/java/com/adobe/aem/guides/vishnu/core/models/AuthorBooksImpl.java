@@ -19,6 +19,7 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import com.adobe.aem.guides.vishnu.core.helper.MultifieldHelper;
 import com.adobe.aem.guides.vishnu.core.models.interfa.AuthorBooks;
 
+//model
 @Model(adaptables = SlingHttpServletRequest.class, adapters = AuthorBooks.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 
 public class AuthorBooksImpl implements AuthorBooks {
