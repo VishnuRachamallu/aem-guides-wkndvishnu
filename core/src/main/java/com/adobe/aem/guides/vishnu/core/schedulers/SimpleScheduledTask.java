@@ -32,12 +32,12 @@ import org.slf4j.LoggerFactory;
 @Component(service=Runnable.class)
 public class SimpleScheduledTask implements Runnable {
 
-    @ObjectClassDefinition(name="A scheduled task",
+    @ObjectClassDefinition(name="B scheduled task",
                            description = "Simple demo for cron-job like task with properties")
     public static @interface Config {
 
         @AttributeDefinition(name = "Cron-job expression")
-        String scheduler_expression() default "*/60 * * * * ?";
+        String scheduler_expression() default "*/30 * * * * ?";
 
         @AttributeDefinition(name = "Concurrent task",
                              description = "Whether or not to schedule this task concurrently")
@@ -45,7 +45,7 @@ public class SimpleScheduledTask implements Runnable {
 
         @AttributeDefinition(name = "A parameter",
                              description = "Can be configured in /system/console/configMgr")
-        String myParameter() default "";
+        String myParameter() default "this is default parameter";
     }
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -54,12 +54,14 @@ public class SimpleScheduledTask implements Runnable {
     
     @Override
     public void run() {
-        logger.debug("SimpleScheduledTask is now running, myParameter='{}'", myParameter);
+        logger.info("\n B SimpleScheduledTask is now running, myParameter='{}' \n", myParameter);
     }
 
     @Activate
     protected void activate(final Config config) {
         myParameter = config.myParameter();
     }
+    
+    
 
 }

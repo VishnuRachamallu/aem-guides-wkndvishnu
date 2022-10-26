@@ -19,45 +19,44 @@ import org.slf4j.LoggerFactory;
 
 import com.adobe.aem.guides.vishnu.core.utils.ResolverUtil;
 
-@Component(service = EventHandler.class,
-immediate = true,
-property = {
-		EventConstants.EVENT_TOPIC+"=org/apache/sling/api/resource/Resource/ADDED",
-		EventConstants.EVENT_TOPIC+"=org/apache/sling/api/resource/Resource/CHANGED",
-		EventConstants.EVENT_TOPIC+"=org/apache/sling/api/resource/Resource/REMOVED",
-		EventConstants.EVENT_FILTER+"=(path=/content/vishnuwknd/us/events/osgi-event-handler/*"
-})
-public class OSGiEventListner implements EventHandler{
+@Component(service = EventHandler.class, immediate = true, property = {
+		EventConstants.EVENT_TOPIC + "=org/apache/sling/api/resource/Resource/ADDED",
+		EventConstants.EVENT_TOPIC + "=org/apache/sling/api/resource/Resource/CHANGED",
+		EventConstants.EVENT_TOPIC + "=org/apache/sling/api/resource/Resource/REMOVED",
+		EventConstants.EVENT_FILTER + "=(path=/content/vishnuwknd/us/events/osgi-event-handler/*)" 
+		})
+
+public class OSGiEventListner implements EventHandler {
 
 	@Reference
 	ResourceResolverFactory resourceResolverFactory;
-	
-	private static final Logger Log=LoggerFactory.getLogger(OSGiEventListner.class);
-	
-	
+
+	private static final Logger Log = LoggerFactory.getLogger(OSGiEventListner.class);
+
 	@Override
 	public void handleEvent(Event event) {
-		
-		Log.info("Event topic : "+event.getTopic()+" Properties :"+event.getProperty(SlingConstants.PROPERTY_PATH));
+
+		Log.info("Event topic with : " + event.getTopic() + " Properties :"
+				+ event.getProperty(SlingConstants.PROPERTY_PATH));
 		try {
-			ResourceResolver resourceResolver=ResolverUtil.newResolver(resourceResolverFactory);
-			Resource resource=resourceResolver.getResource(event.getProperty(SlingConstants.PROPERTY_PATH).toString());
-			
-			Node node=resource.adaptTo(Node.class);
-			node.setProperty("Event Handler Task", "event "+event.getTopic()+" by "+resourceResolver.getUserID());
-			
-			for (String prop:event.getPropertyNames()) {
-				Log.info("property: "+prop+ " value "+event.getProperty(prop));
+			ResourceResolver resourceResolver = ResolverUtil.newResolver(resourceResolverFactory);
+			Resource resource = resourceResolver
+					.getResource(event.getProperty(SlingConstants.PROPERTY_PATH).toString());
+
+			Node node = resource.adaptTo(Node.class);
+			node.setProperty("Event Handler Task", "event " + event.getTopic() + " by " + resourceResolver.getUserID());
+
+			for (String prop : event.getPropertyNames()) {
+				Log.info("property: " + prop + " value " + event.getProperty(prop));
 			}
-			
+
 			resourceResolver.commit();
-			
+
 		} catch (LoginException | RepositoryException | PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 
 }
