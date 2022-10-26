@@ -8,6 +8,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
@@ -20,71 +23,73 @@ import org.apache.sling.models.annotations.injectorspecific.ScriptVariable;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 
 import com.adobe.aem.guides.vishnu.core.models.interfa.SampleExporter;
+import com.adobe.aem.guides.vishnu.core.models.interfa.SampleExporterXMLINterf;
 import com.day.cq.wcm.api.Page;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@Exporter(name = "vishnuxml",extensions = "xml",selector = "samplegeeks")
+@Model(adaptables = SlingHttpServletRequest.class,
+adapters = SampleExporterXMLINterf.class,
+defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
+resourceType = "vishnuwknd/components/exporterxmlmftraining" )
 
-///content/vishnuwknd/us/exporter/exporterusingxml/jcr:content/root/container/container/exporterxmlmftrainin
-@Model(adaptables = SlingHttpServletRequest.class,adapters = SampleExporter.class,defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL,
-resourceType = "/apps/vishnuwknd/components/exporterxmlmftraining" )
 
-@Exporter(name = "VishnuXML",extensions = "xml")
 
-public class SampleExporterXml implements SampleExporter{
+@XmlRootElement(name = "Root xml element")
+public class SampleExporterXml implements SampleExporterXMLINterf{
 	@Inject
 	Resource componentResource;
 
 	@ScriptVariable
 	Page currentPage;
 
+	@XmlElement
 	@Inject
 	@Via("resource")
 	@Named("jcr:lastModifiedBy")
 	String modifiedBy;
 
-	@Inject
-	@Via("resource")
-	@Default(values = "AEM")
-	private String fname;
-
-	@ValueMapValue
-	@Default(values = "GEEKS")
-	private String lname;
-
+	@XmlElement
 	@ValueMapValue
 	private String author;
 
+	@XmlElement
 	@ValueMapValue
 	private List<String> booksauthor;
 
 	@Override
+	@XmlElement
 	public String getAuthorName() {
 		// TODO Auto-generated method stub
 		return author;
 	}
 
 	@Override
+	@XmlElement
 	public String getPageTitle() {
 		return currentPage.getTitle();
 	}
 
 	@Override
+	@XmlElement
 	public String getHomePageName() {
 		return currentPage.getName();
 	}
 
 	@Override
-	@JsonProperty(value = "Last Modified by user")
+	@XmlElement(name =  "Last Modified by user xml")
 	public String getLastModifiedBy() {
 		return modifiedBy;
 	}
 
-	@JsonProperty(value = "vishnu-name")
+	@XmlElement(name =  "vishnu-name xml")
 	public String vishnuName() {
 		return "vishnu rachamallu";
 	}
 
 	@Override
+	@XmlElement(name = "GET BOOKS")
+	@XmlElementWrapper(name = "total books volumes")
 	public List<String> getBooks() {
 		if (booksauthor != null) {
 			return new ArrayList<String>(booksauthor);
@@ -94,7 +99,7 @@ public class SampleExporterXml implements SampleExporter{
 	}
 
 	@Override
-	@JsonProperty(value = "Book with map")
+	@XmlElement(name = "Book with map xml")
 	public List<Map<String, String>> getBookDetailsWithMap() {
 
 		List<Map<String, String>> totalList = new ArrayList<>();
@@ -113,7 +118,7 @@ public class SampleExporterXml implements SampleExporter{
 		return totalList;
 	}
 
-	@JsonProperty(value = "Test vishnu function")
+	@XmlElement(name = "Test vishnu function xml")
 	public String TestVishnuFunction() {
 		return "Hello from user declared function";
 	}
