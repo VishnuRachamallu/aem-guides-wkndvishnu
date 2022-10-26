@@ -36,22 +36,37 @@ import java.io.IOException;
  * {@link SlingSafeMethodsServlet} shall be used for HTTP methods that are
  * idempotent. For write operations use the {@link SlingAllMethodsServlet}.
  */
+//http://localhost:4502/content/vishnuwknd/us/demo-user-servlet1/_jcr_content.dad
+
 @Component(service = { Servlet.class })
-@SlingServletResourceTypes(
-        resourceTypes="vishnuwknd/components/page",
-        methods=HttpConstants.METHOD_GET,
-        extensions="momos")
+@SlingServletResourceTypes(resourceTypes = "vishnuwknd/components/page", methods = HttpConstants.METHOD_GET, extensions = "dad")
 @ServiceDescription("Simple Demo Servlet")
 public class SimpleServlet extends SlingSafeMethodsServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    protected void doGet(final SlingHttpServletRequest req,
-            final SlingHttpServletResponse resp) throws ServletException, IOException {
-        final Resource resource = req.getResource();
-        resp.setContentType("text/plain");
-        resp.getWriter().write("Title = " + resource.getValueMap().get(JcrConstants.JCR_TITLE));
-        resp.getWriter().print("\n"+getClass());
-    }
+	@Override
+	protected void doGet(final SlingHttpServletRequest req, final SlingHttpServletResponse resp)
+			throws ServletException, IOException {
+		final Resource resource = req.getResource();
+
+		String selectors = "Selectors -->";
+		String extensions = req.getRequestPathInfo().getExtension();
+		try {
+			String selector[] = req.getRequestPathInfo().getSelectors();
+
+			for (String s : selector) {
+				selectors = selectors + " , " + s;
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		resp.setContentType("text/html");
+		resp.getWriter().write("Title = " + resource.getValueMap().get(JcrConstants.JCR_TITLE));
+		resp.getWriter().print(getClass());
+		resp.getWriter().print("<h3>Resource based servlet</h3>");
+		resp.getWriter().print("<h3>Selectors :" + selectors + "</h3>");
+		resp.getWriter().print("<h3>Extensions :" + extensions + "</h3>");
+	}
 }

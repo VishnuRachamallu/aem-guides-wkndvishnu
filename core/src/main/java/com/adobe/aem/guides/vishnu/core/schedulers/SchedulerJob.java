@@ -7,6 +7,7 @@ import org.apache.sling.commons.scheduler.Scheduler;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
@@ -32,6 +33,14 @@ public class SchedulerJob implements Job{
 	@Deactivate
 	public void diactivate(SchedulerConfiguration configuration) {
 		removeScheduler();
+	}
+	
+	@Modified
+	protected void modified(SchedulerConfiguration config) {
+		removeScheduler();
+
+		schedulerId = config.schedulerName().hashCode();
+		addScheduler(config);
 	}
 
 	private void addScheduler(SchedulerConfiguration configuration) {

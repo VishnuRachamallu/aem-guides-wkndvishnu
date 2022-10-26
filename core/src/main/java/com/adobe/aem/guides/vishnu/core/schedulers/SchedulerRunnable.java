@@ -5,6 +5,7 @@ import org.apache.sling.commons.scheduler.Scheduler;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
@@ -34,6 +35,14 @@ public class SchedulerRunnable implements Runnable {
 		removeScheduler();
 	}
 
+	@Modified
+	protected void modified(SchedulerConfiguration config) {
+		removeScheduler();
+
+		schedulerId = config.schedulerName().hashCode();
+		addScheduler(config);
+	}
+
 	private void addScheduler(SchedulerConfiguration configuration) {
 		// TODO Auto-generated method stub
 		ScheduleOptions scheduleOptions = scheduler.EXPR(configuration.cornExpression());
@@ -41,8 +50,13 @@ public class SchedulerRunnable implements Runnable {
 		scheduleOptions.canRunConcurrently(false);
 		scheduler.schedule(this, scheduleOptions);
 		LOG.info("\n ===== Vishnu Wknd Scheduler 1  added========== \n");
-		ScheduleOptions scheduleOptions2 = scheduler.NOW();
-		scheduler.schedule(this, scheduleOptions2);
+
+		/*
+		 * This will run scheduler immediately once.
+		 * 
+		 * ScheduleOptions scheduleOptions2 = scheduler.NOW(); scheduler.schedule(this,
+		 * scheduleOptions2);
+		 */
 
 		/*
 		 * This will run scheduler immediately and two more times in interval of 5

@@ -26,9 +26,13 @@ public class TestPathSlingServletPankaj extends SlingSafeMethodsServlet {
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
 
+		String paths=request.getRequestPathInfo().getResourcePath();
 		
 		response.setHeader("Content-Type", "text/html");
-		response.getWriter().print("<h1>Sling Servlet Called</h1>");
+		response.getWriter().print("<h1>Path based Sling Servlet Called</h1>");
+		response.getWriter().print(getClass());
+		response.getWriter().print("<h3>Paths :"+paths+"</h3>");
 		response.getWriter().close();
+		
 	}
 }
