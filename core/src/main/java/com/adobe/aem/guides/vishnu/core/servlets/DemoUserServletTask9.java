@@ -11,7 +11,9 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
+import org.apache.sling.models.factory.ModelFactory;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.adobe.aem.guides.vishnu.core.models.DemoUserServletModel1;
 
@@ -21,6 +23,10 @@ import com.adobe.aem.guides.vishnu.core.models.DemoUserServletModel1;
 public class DemoUserServletTask9 extends SlingSafeMethodsServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	  @Reference 
+	  ModelFactory modelFactory;
+	 
 
 	@Override
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
@@ -33,14 +39,21 @@ public class DemoUserServletTask9 extends SlingSafeMethodsServlet {
 		
 		ValueMap properties = resource.adaptTo(ValueMap.class);
 		DemoUserServletModel1 model = resource.adaptTo(DemoUserServletModel1.class);
+		
 
 		response.setHeader("Content-Type", "text/html");
 		response.getWriter().println("<h1>Path based Sling Servlet with Resource injection uisng servlet</h1>");
 		response.getWriter().print(getClass());
 		response.getWriter().print("<h3>Paths :" + paths + "</h3>");
 		response.getWriter().println("<h3>Title using resource :" + resource.getValueMap().get("title1", String.class)+"</h3>");
-		response.getWriter().println("<h3>Title using model :" + model+"</h3>");
-		response.getWriter().println("<h3>Title using properties :" + properties.get("title1", String.class)+"<h3>");
-		response.getWriter().close();
+		response.getWriter().println("<h3>Title using ValueMap properties :" + properties.get("title1", String.class)+"<h3>");
+		response.getWriter().println("<h3>Title using sling model adapTo :" + model.getTitle1()+"</h3>");
+		
+		
+		  response.getWriter().println(modelFactory.canCreateFromAdaptable(resource,
+		  DemoUserServletModel1.class)); 
+		  DemoUserServletModel1 model2=modelFactory.createModel(resource, DemoUserServletModel1.class);
+		  response.getWriter().println("<h3>Title using ModelFactory  :"+model2.getTitle1()+"</h3>");
+		 
 	}
 }
