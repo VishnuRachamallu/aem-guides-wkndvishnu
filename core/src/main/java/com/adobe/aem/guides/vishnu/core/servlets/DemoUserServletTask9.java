@@ -15,6 +15,7 @@ import org.osgi.service.component.annotations.Component;
 
 import com.adobe.aem.guides.vishnu.core.models.DemoUserServletModel1;
 
+// http://localhost:4502/bin/vishnuproject/abc
 @Component(service = Servlet.class, property = { "sling.servlet.paths=" + "/bin/vishnuproject/abc" })
 
 public class DemoUserServletTask9 extends SlingSafeMethodsServlet {
@@ -29,9 +30,9 @@ public class DemoUserServletTask9 extends SlingSafeMethodsServlet {
 		ResourceResolver resourceResolver = request.getResourceResolver();
 		Resource resource = resourceResolver.getResource(
 				"/content/vishnuwknd/us/demo-user-servlet1/jcr:content/root/container/container/demouserservlet");
-
-		DemoUserServletModel1 model = resource.adaptTo(DemoUserServletModel1.class);
+		
 		ValueMap properties = resource.adaptTo(ValueMap.class);
+		DemoUserServletModel1 model = resource.adaptTo(DemoUserServletModel1.class);
 
 		response.setHeader("Content-Type", "text/html");
 		response.getWriter().println("<h1>Path based Sling Servlet with Resource injection uisng servlet</h1>");
