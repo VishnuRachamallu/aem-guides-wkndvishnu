@@ -8,7 +8,7 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
 public @interface SchedulerConfigurationJob {
 	@AttributeDefinition(name = "Cron Expression", description = "Cron Expression used by Scheduler", type = AttributeType.STRING)
-	public String cornExpression() default "*/10 * * * * ?";
+	public String cornExpression() default "*/60 * * * * ?";
 
 	@AttributeDefinition(name = "Scheduler Name", description = "Name of Scheduler", type = AttributeType.STRING)
 	public String schedulerName() default "Vishnu Custom Sling Scheduler config";
