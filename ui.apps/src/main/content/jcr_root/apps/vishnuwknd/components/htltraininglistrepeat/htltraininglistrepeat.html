@@ -1,0 +1,45 @@
+<div data-sly-use.var="${'com.adobe.aem.guides.vishnu.core.models.HtlTrainingListRepeat'}"></div>
+
+<br>Author Books displayed using iteration: 
+<div data-sly-list.item=${var.authorBooks}>
+${item}<br>
+</div>
+
+=========using List of MAP for books=========
+<div data-sly-list.item="${var.bookDetailsWithMap}">
+<br>Book ${itemList.count}
+<br>Book Name : ${item.BOOKNAME}
+<br>Book Subject:${item.BOOKSUBJECT}
+<br>Book Publish Year:${item.PUBLISHYEAR}
+</div>
+
+========Using Dummy Map========
+<div data-sly-list.item="${var.sampleMap}">
+<br>Book ${itemList.count}
+<br>Key Name : ${item}
+<br>Key Value:${var.sampleMap[item]}
+</div>
+
+
+====List with start , end , step========
+<!-- End can be more than the actual elements -->
+
+<div data-sly-list.item="${var.authorBooks @ begin=1 ,step=2, end=15}">
+<p>Book ##${itemList.count}: <b>${item}</b></p>
+</div>
+
+=========Other list operations==========
+<div data-sly-list.item="${var.authorBooks }">
+<p> INdex: ${itemList.index},  First: ${itemList.first},  Middle: ${itemList.middle},  Last: ${itemList.last},  Odd: ${itemList.odd}</p>
+<p>Book ##${itemList.count}: <b>${item}</b></p>
+</div>
+
+========Repeat Usage===========
+<div class="repeat" data-sly-repeat.item="${var.authorBooks}">
+<p>Book ##${itemList.count}: <b>${item}</b></p>
+</div>
+
+
+
+
+
