@@ -1,0 +1,65 @@
+<div data-sly-use.var="${'com.adobe.aem.guides.vishnu.core.models.HtlTrainingListRepeat'}"></div>
+
+<div id ="html-attribute" class="Geeks" >
+<p>Using HTML tag</p>
+</div>
+<!-- This is HTML comment -->
+<!--/* This is slightly comment */-->
+<div id ="sightly-attribute" data-sly-attribute.class="Geeks" >
+<p>Using slightly tag</p>
+</div>
+
+<div id ="sightly-attribute" data-sly-attribute.key1="overwritten key1" data-sly-attribute="${var.sampleMap}" data-sly-attribute.key4="overwritten key4">
+<p>Using slightly tag dynamic attributes</p>
+</div>
+
+=======List============
+<div data-sly-list.item=${var.authorBooks}>
+${item}<br>
+</div>
+
+=========using List with MAP =========
+<div data-sly-list.item="${var.bookDetailsWithMap}">
+<br>Book ${itemList.count}
+<br>Book Name : ${item.BOOKNAME}
+<br>Book Subject:${item.BOOKSUBJECT}
+<br>Book Publish Year:${item.PUBLISHYEAR}
+</div>
+
+========Using  Map========
+<div data-sly-list.item="${var.sampleMap}">
+<br>Book ${itemList.count}
+<br>Key Name : ${item}
+<br>Key Value:${var.sampleMap[item]}
+</div>
+
+
+
+
+========Repeat Usage===========
+<div class="repeat" data-sly-repeat.item="${var.authorBooks}">
+<p>Book ##${itemList.count}: <b>${item}</b></p>
+</div>
+
+
+====Using Template=======
+<div data-sly-use.justvar="authorBook.html">
+<sly data-sly-call="${justvar.abooks @ books=var}" />
+</div>
+
+
+<div data-sly-use.justmapvar="authorBook.html">
+<sly data-sly-call="${justmapvar.mapAttrib @ attribute=var.sampleMap}" />
+</div>
+
+===========Iterator and normal sample===========
+<br>Using List
+<div data-sly-list.item="${var.pages}">
+<p>Title : ${item.title} , Name:${item.name}</p>
+</div>
+
+Using Iterator
+<div data-sly-list.item="${var.pagesIterator}">
+<p>Title : ${item.title} , Name:${item.name}</p>
+</div>
+
