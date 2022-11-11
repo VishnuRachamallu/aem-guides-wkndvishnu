@@ -1,0 +1,14 @@
+Using Properties
+<p>Title : ${properties.title1}</p>
+<p>Text Area : ${properties.textArea}</p>
+
+<p>Using java model</p>
+
+<div data-sly-use.obj="${'com.adobe.aem.guides.vishnu.core.models.TempSiva'  @ attrib='Siva', attribute='kumar'  }">
+<p>${obj.textArea}</p>
+<p>${obj.title1}</p>
+<p>${obj.lastModifiedBY}</p>
+<p>${obj.user}</p>
+</div>
+
+
