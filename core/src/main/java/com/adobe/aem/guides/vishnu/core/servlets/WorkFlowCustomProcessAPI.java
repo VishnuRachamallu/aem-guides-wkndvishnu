@@ -18,12 +18,11 @@ import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 
 @Component(service = WorkflowProcess.class, immediate = true, property = {
-		"process.label" + "=AEM Vishnu Wrokflow Process 1" })
-public class WorkFlowCustomProcess implements WorkflowProcess {
+		"process.label" + "=AEM Vishnu Wrokflow Process test 2" })
+public class WorkFlowCustomProcessAPI implements WorkflowProcess {
 
 	private Logger LOG = LoggerFactory.getLogger(getClass());
 
-	@Override
 	public void execute(WorkItem workItem, WorkflowSession workflowSession, MetaDataMap processArguments)
 			throws WorkflowException {
 
@@ -45,7 +44,7 @@ public class WorkFlowCustomProcess implements WorkflowProcess {
 					String prop = args[0];
 					String value = args[1];
 					if (node != null) {
-						
+
 						wfd.put(prop, value);
 						node.setProperty(prop, value);
 					}
@@ -56,7 +55,7 @@ public class WorkFlowCustomProcess implements WorkflowProcess {
 				Iterator<String> i = keySets.iterator();
 				while (i.hasNext()) {
 					String key = i.next();
-					LOG.info("\n ITEM KEY -{} ,value {}", key, wfd.get(key));
+					LOG.info("\n  Vishnu Key -{} ,Vishnu value {}", key, wfd.get(key));
 				}
 			}
 
@@ -65,4 +64,5 @@ public class WorkFlowCustomProcess implements WorkflowProcess {
 		}
 
 	}
+
 }
