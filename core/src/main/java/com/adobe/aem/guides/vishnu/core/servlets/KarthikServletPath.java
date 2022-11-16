@@ -53,19 +53,19 @@ public class KarthikServletPath extends SlingSafeMethodsServlet {
 				Resource resource = page1.adaptTo(Resource.class);
 				array = new JSONArray();
 
-				for (Resource rc : resource.getChildren()) {
+				if (resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class) != null)
+					array.put(
+							"Title :" + resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class));
+				if (resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class) != null)
+					array.put("Description :"
+							+ resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class));
+				if (resource.getChild("jcr:content").getChild("image") != null)
+					if (resource.getChild("jcr:content").getChild("image").getValueMap().get("fileReference",
+							String.class) != null)
+						array.put("Thumbnail :" + resource.getChild("jcr:content").getChild("image").getValueMap()
+								.get("fileReference", String.class));
+				jsonObject.put(page1.getPath(), array);
 
-					if (rc.getValueMap().get("jcr:title", String.class) != null)
-						array.put("Title :" + rc.getValueMap().get("jcr:title", String.class));
-					if (rc.getValueMap().get("jcr:description", String.class) != null)
-						array.put("Description :" + rc.getValueMap().get("jcr:description", String.class));
-					if (rc.getChild("image") != null) {
-						if (rc.getChild("image").getValueMap().get("fileReference", String.class) != null)
-							array.put("Thumbnail :"
-									+ rc.getChild("image").getValueMap().get("fileReference", String.class));
-					}
-					jsonObject.put(page1.getPath(), array);
-				}
 			}
 		} catch (Exception e) {
 			LOG.info("\n Login Exception {} ", e.getMessage());
