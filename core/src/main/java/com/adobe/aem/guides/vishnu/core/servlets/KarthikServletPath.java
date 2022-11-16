@@ -49,30 +49,24 @@ public class KarthikServletPath extends SlingSafeMethodsServlet {
 			Iterator<Page> pages = page.listChildren();
 
 			while (pages.hasNext()) {
-
 				Page page1 = pages.next();
-
 				Resource resource = page1.adaptTo(Resource.class);
-				LOG.info(resource.toString());
 				array = new JSONArray();
-				LOG.info(resource.toString());
+
 				for (Resource rc : resource.getChildren()) {
+
 					if (rc.getValueMap().get("jcr:title", String.class) != null)
 						array.put("Title :" + rc.getValueMap().get("jcr:title", String.class));
 					if (rc.getValueMap().get("jcr:description", String.class) != null)
 						array.put("Description :" + rc.getValueMap().get("jcr:description", String.class));
-
 					if (rc.getChild("image") != null) {
-						LOG.info(rc.getChild("image").getValueMap().get("fileReference", String.class));
-						array.put(
-								"Thumbnail :" + rc.getChild("image").getValueMap().get("fileReference", String.class));
+						if (rc.getChild("image").getValueMap().get("fileReference", String.class) != null)
+							array.put("Thumbnail :"
+									+ rc.getChild("image").getValueMap().get("fileReference", String.class));
 					}
-
 					jsonObject.put(page1.getPath(), array);
 				}
-
 			}
-
 		} catch (Exception e) {
 			LOG.info("\n Login Exception {} ", e.getMessage());
 			response.getWriter().print(e.getMessage());
