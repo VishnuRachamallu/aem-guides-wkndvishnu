@@ -17,6 +17,10 @@ import com.adobe.granite.workflow.exec.WorkflowData;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 
+// http://localhost:4502/editor.html/conf/global/settings/workflow/models/wf-testing.html
+// give below path for testing
+// "/content/vishnuwknd/us/wf-model-testing"
+
 @Component(service = WorkflowProcess.class, immediate = true, property = {
 		"process.label" + "=AEM Vishnu Wrokflow Process test 2" })
 public class WorkFlowCustomProcessAPI implements WorkflowProcess {
