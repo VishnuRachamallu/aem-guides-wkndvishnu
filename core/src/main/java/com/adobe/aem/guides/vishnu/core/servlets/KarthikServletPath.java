@@ -40,7 +40,7 @@ public class KarthikServletPath extends SlingSafeMethodsServlet {
 
 		ResourceResolver resourceResolver = request.getResourceResolver();
 		JSONObject jsonObject = new JSONObject();
-		JSONArray array;
+		JSONArray arrayarray = new JSONArray();
 
 		try {
 
@@ -51,22 +51,25 @@ public class KarthikServletPath extends SlingSafeMethodsServlet {
 			while (pages.hasNext()) {
 				Page page1 = pages.next();
 				Resource resource = page1.adaptTo(Resource.class);
-				array = new JSONArray();
+				JSONObject temp = new JSONObject();
 
-				for (Resource rc : resource.getChildren()) {
+				if (resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class) != null)
+					temp.put(
+							"Title " , resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class));
+				if (resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class) != null)
+					temp.put("Description ",
+							 resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class));
+				if (resource.getChild("jcr:content").getChild("image") != null)
+					if (resource.getChild("jcr:content").getChild("image").getValueMap().get("fileReference",
+							String.class) != null)
+						temp.put("Thumbnail " , resource.getChild("jcr:content").getChild("image").getValueMap()
+								.get("fileReference", String.class));
+				arrayarray.put( temp);
 
-					if (rc.getValueMap().get("jcr:title", String.class) != null)
-						array.put("Title :" + rc.getValueMap().get("jcr:title", String.class));
-					if (rc.getValueMap().get("jcr:description", String.class) != null)
-						array.put("Description :" + rc.getValueMap().get("jcr:description", String.class));
-					if (rc.getChild("image") != null) {
-						if (rc.getChild("image").getValueMap().get("fileReference", String.class) != null)
-							array.put("Thumbnail :"
-									+ rc.getChild("image").getValueMap().get("fileReference", String.class));
-					}
-					jsonObject.put(page1.getPath(), array);
-				}
 			}
+			
+			jsonObject.put("results", arrayarray);
+			
 		} catch (Exception e) {
 			LOG.info("\n Login Exception {} ", e.getMessage());
 			response.getWriter().print(e.getMessage());
