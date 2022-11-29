@@ -54,22 +54,24 @@ public class KarthikServletPath extends SlingSafeMethodsServlet {
 				JSONObject temp = new JSONObject();
 
 				if (resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class) != null)
-					temp.put(
-							"Title " , resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class));
+					temp.put("Title ", resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class));
+				if (resource.getChild("jcr:content").getValueMap().get("cq:tags", String.class) != null)
+					temp.put("Tags ", resource.getChild("jcr:content").getValueMap().get("cq:tags", String[].class));
+
 				if (resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class) != null)
 					temp.put("Description ",
-							 resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class));
+							resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class));
 				if (resource.getChild("jcr:content").getChild("image") != null)
 					if (resource.getChild("jcr:content").getChild("image").getValueMap().get("fileReference",
 							String.class) != null)
-						temp.put("Thumbnail " , resource.getChild("jcr:content").getChild("image").getValueMap()
+						temp.put("Thumbnail ", resource.getChild("jcr:content").getChild("image").getValueMap()
 								.get("fileReference", String.class));
-				arrayarray.put( temp);
+				arrayarray.put(temp);
 
 			}
-			
+
 			jsonObject.put("results", arrayarray);
-			
+
 		} catch (Exception e) {
 			LOG.info("\n Login Exception {} ", e.getMessage());
 			response.getWriter().print(e.getMessage());
