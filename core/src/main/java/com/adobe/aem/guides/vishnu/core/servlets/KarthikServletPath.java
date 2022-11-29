@@ -2,7 +2,9 @@ package com.adobe.aem.guides.vishnu.core.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jcr.Node;
 import javax.jcr.Session;
@@ -14,7 +16,7 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.adapter.Adaptable;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.json.JSONArray;
@@ -54,22 +56,25 @@ public class KarthikServletPath extends SlingSafeMethodsServlet {
 				JSONObject temp = new JSONObject();
 
 				if (resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class) != null)
-					temp.put(
-							"Title " , resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class));
+					temp.put("Title ", resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class));
+
+				if (resource.getChild("jcr:content").getValueMap().get("cq:tags", String.class) != null)
+					temp.put("Tags ", resource.getChild("jcr:content").getValueMap().get("cq:tags", String[].class));
+
 				if (resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class) != null)
 					temp.put("Description ",
-							 resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class));
+							resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class));
 				if (resource.getChild("jcr:content").getChild("image") != null)
 					if (resource.getChild("jcr:content").getChild("image").getValueMap().get("fileReference",
 							String.class) != null)
-						temp.put("Thumbnail " , resource.getChild("jcr:content").getChild("image").getValueMap()
+						temp.put("Thumbnail ", resource.getChild("jcr:content").getChild("image").getValueMap()
 								.get("fileReference", String.class));
-				arrayarray.put( temp);
+				arrayarray.put(temp);
 
 			}
-			
+
 			jsonObject.put("results", arrayarray);
-			
+
 		} catch (Exception e) {
 			LOG.info("\n Login Exception {} ", e.getMessage());
 			response.getWriter().print(e.getMessage());
