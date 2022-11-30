@@ -57,7 +57,6 @@ public class KarthikServletPath extends SlingSafeMethodsServlet {
 
 				if (resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class) != null)
 					temp.put("Title ", resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class));
-
 				if (resource.getChild("jcr:content").getValueMap().get("cq:tags", String.class) != null)
 					temp.put("Tags ", resource.getChild("jcr:content").getValueMap().get("cq:tags", String[].class));
 
