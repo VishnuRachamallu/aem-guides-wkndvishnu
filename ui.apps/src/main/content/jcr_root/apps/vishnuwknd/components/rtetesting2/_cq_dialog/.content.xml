@@ -49,15 +49,12 @@
                                             hiddenHeaderClassName="cq-wcm-foundation-aria-visuallyhidden"
                                             hiddenHeaderEditingCSS="cq-RichText-hiddenHeader--editing"/>
                                     </table>
-                                    <misctools
-                                        jcr:primaryType="nt:unstructured"
-                                        features="*"/>
                                 </rtePlugins>
                                 <uiSettings jcr:primaryType="nt:unstructured">
                                     <cui jcr:primaryType="nt:unstructured">
                                         <inline
                                             jcr:primaryType="nt:unstructured"
-                                            toolbar="[format#bold,format#italic,format#underline,#justify,#lists,links#modifylink,links#unlink,#paraformat,links#anchor,misctools#sourceedit]">
+                                            toolbar="[format#bold,format#italic,format#underline,#justify,#lists,links#modifylink,links#unlink,#paraformat]">
                                             <popovers jcr:primaryType="nt:unstructured">
                                                 <justify
                                                     jcr:primaryType="nt:unstructured"
