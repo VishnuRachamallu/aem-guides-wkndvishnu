@@ -2,7 +2,9 @@ package com.adobe.aem.guides.vishnu.core.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.jcr.Node;
 import javax.jcr.Session;
@@ -14,7 +16,7 @@ import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.adapter.Adaptable;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
 import org.json.JSONArray;
