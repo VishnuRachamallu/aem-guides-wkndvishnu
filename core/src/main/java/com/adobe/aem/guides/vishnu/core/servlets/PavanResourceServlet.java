@@ -50,7 +50,8 @@ public class PavanResourceServlet extends SlingSafeMethodsServlet {
 			response.getWriter().print("\n" + pages.next().getTitle());
 		}
 
-		response.getWriter().print("\n\n template path :" + resource.getValueMap().get("cq:template", String.class));
+		response.getWriter().print("\n\n template path resource.getValueMap().get(\"cq:template\" :" + resource.getValueMap().get("cq:template", String.class));
+		response.getWriter().print("\n\n template path page.getContentResource().getValueMap().get(\"cq:template\" :" + page.getContentResource().getValueMap().get("cq:template", String.class));
 		response.getWriter().print("\n value is resource.getPath() :" + resource.getPath());
 		response.getWriter().print("\n page path using replace :" + pagePath);
 		response.getWriter().print("\n page path using substring :" + pagePath2);

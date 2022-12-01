@@ -29,9 +29,9 @@ import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
 
 @Component(service = Servlet.class)
-@SlingServletPaths(value = "/bin/blogkar")
+@SlingServletPaths(value = "/bin/blogkar2")
 
-public class KarthikServletPath extends SlingSafeMethodsServlet {
+public class KarthikServletPath2 extends SlingSafeMethodsServlet {
 
 	private static final long serialVersionUID = 1L;
 	private Logger LOG = LoggerFactory.getLogger(getClass());
@@ -52,21 +52,20 @@ public class KarthikServletPath extends SlingSafeMethodsServlet {
 
 			while (pages.hasNext()) {
 				Page page1 = pages.next();
-				Resource resource = page1.adaptTo(Resource.class);
 				JSONObject temp = new JSONObject();
-				
-				if (resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class) != null)
-					temp.put("Title ", resource.getChild("jcr:content").getValueMap().get("jcr:title", String.class));
-				if (resource.getChild("jcr:content").getValueMap().get("cq:tags", String.class) != null)
-					temp.put("Tags ", resource.getChild("jcr:content").getValueMap().get("cq:tags", String[].class));
 
-				if (resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class) != null)
+				if (page1.getContentResource().getValueMap().get("jcr:title", String.class) != null)
+					temp.put("Title ", page1.getContentResource().getValueMap().get("jcr:title", String.class));
+				if (page1.getContentResource().getValueMap().get("cq:tags", String[].class) != null)
+					temp.put("Tags ", page1.getContentResource().getValueMap().get("cq:tags", String[].class));
+
+				if (page1.getContentResource().getValueMap().get("jcr:description", String[].class) != null)
 					temp.put("Description ",
-							resource.getChild("jcr:content").getValueMap().get("jcr:description", String.class));
-				if (resource.getChild("jcr:content").getChild("image") != null)
-					if (resource.getChild("jcr:content").getChild("image").getValueMap().get("fileReference",
+							page1.getContentResource().getValueMap().get("jcr:description", String.class));
+				if (page1.getContentResource().getChild("image") != null)
+					if (page1.getContentResource().getChild("image").getValueMap().get("fileReference",
 							String.class) != null)
-						temp.put("Thumbnail ", resource.getChild("jcr:content").getChild("image").getValueMap()
+						temp.put("Thumbnail ", page1.getContentResource().getChild("image").getValueMap()
 								.get("fileReference", String.class));
 				arrayarray.put(temp);
 
