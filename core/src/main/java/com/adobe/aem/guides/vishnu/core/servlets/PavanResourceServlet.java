@@ -39,17 +39,22 @@ public class PavanResourceServlet extends SlingSafeMethodsServlet {
 		Page page = pageManager.getPage(pagePath2);
 
 		// String path = pageManager.getContainingPage(resource).getPath();
+		response.getWriter().print("using pavan suggested getContainingPage passing resource :"
+				+ pageManager.getContainingPage(resource).getPath() + "\n");
+		response.getWriter().print("Uisng PAGE API with content resource : "
+				+ page.getContentResource().getValueMap().get("jcr:title", String.class) + "\n");
 
 		Iterator<Page> pages = page.listChildren();
+
 		while (pages.hasNext()) {
-			response.getWriter().print(pages.next().getTitle() + "\n");
+			response.getWriter().print("\n" + pages.next().getTitle());
 		}
 
-		response.getWriter().print("\n" + "hello vishnu resource");
-		response.getWriter().print("\n" + resource.getValueMap().get("cq:template", String.class));
-		response.getWriter().print("\n" + resource.getPath());
-		response.getWriter().print("\n page path using replace" + pagePath);
-		response.getWriter().print("\n page path using substring" + pagePath);
+		response.getWriter().print("\n\n template path :" + resource.getValueMap().get("cq:template", String.class));
+		response.getWriter().print("\n value is resource.getPath() :" + resource.getPath());
+		response.getWriter().print("\n page path using replace :" + pagePath);
+		response.getWriter().print("\n page path using substring :" + pagePath);
+
 	}
 
 }
