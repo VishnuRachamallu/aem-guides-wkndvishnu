@@ -61,6 +61,7 @@ public class SearchServiceImpl {
 				JSONObject temp=new JSONObject();
 				temp.put("title", page.getTitle());
 				temp.put("path", page.getPath());
+				temp.put("properties",hit.getProperties());
 				resultsArray.put(temp);
 				
 			}
