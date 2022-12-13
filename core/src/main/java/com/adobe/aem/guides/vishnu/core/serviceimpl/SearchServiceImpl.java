@@ -59,9 +59,9 @@ public class SearchServiceImpl {
 			for(Hit hit:hits) {
 				Page page=hit.getResource().adaptTo(Page.class);
 				JSONObject temp=new JSONObject();
-				temp.put("title", page.getTitle());
+				temp.put("title", hit.getTitle());
 				temp.put("path", page.getPath());
-				temp.put("properties",hit.getProperties());
+				temp.put("properties",hit.getProperties().get("sling:resourceType", String.class));
 				resultsArray.put(temp);
 				
 			}
