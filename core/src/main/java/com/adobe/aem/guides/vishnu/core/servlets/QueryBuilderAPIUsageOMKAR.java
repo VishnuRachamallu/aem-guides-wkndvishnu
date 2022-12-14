@@ -9,12 +9,13 @@ import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.apache.sling.servlets.annotations.SlingServletPaths;
-import org.json.JSONObject;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import com.adobe.aem.guides.vishnu.core.serviceimpl.SearchServiceImpl;
 import com.adobe.aem.guides.vishnu.core.serviceimpl.SearchServiceImplOmkar;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @Component(service = Servlet.class)
 @SlingServletPaths(value = "/bin/searchingOMKAR")
@@ -26,18 +27,36 @@ public class QueryBuilderAPIUsageOMKAR extends SlingSafeMethodsServlet {
 	@Override
 	protected void doGet(SlingHttpServletRequest request, SlingHttpServletResponse response)
 			throws ServletException, IOException {
-		JSONObject searchResult = null;
 
-		try {
-			String searchText = "women";
-			searchResult = searchServiceImplOmkar.searchRes(searchText);
+		/*
+		 * ObjectMapper objectMapper = new ObjectMapper(); ArrayNode categoriListtemp2 =
+		 * objectMapper.createArrayNode(); ArrayNode categoriListtemp3 =
+		 * searchServiceImplOmkar
+		 * .getDirectChildDetails("/content/vishnuwknd/us/omkar-main-page",
+		 * categoriListtemp2);
+		 * response.getWriter().write("\nExecuted Array Node Size categoriListtemp3 :" +
+		 * categoriListtemp3.size());
+		 * 
+		 * for (JsonNode obj : categoriListtemp3) {
+		 * response.getWriter().write("\n iterating nodes :" + obj.get("title"));
+		 * response.getWriter().write("\n iterating nodes :" + obj.get("path"));
+		 * 
+		 * }
+		 */
 
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		/*
+		 * //This is for getCategories 
+		 * ArrayNode categoriListtemp =
+		 * searchServiceImplOmkar.getCategories();
+		 * response.getWriter().write("\nExecuted Array NODE");
+		 * response.getWriter().write("\nExecuted Array Node Size :" +
+		 * categoriListtemp.size());
+		 */
 
-		response.setContentType("application/json");
-		response.getWriter().write(searchResult.toString());
+		// This is for getCategoriesAll
+		searchServiceImplOmkar.getCategoriesAll();
+		response.getWriter().write("\nExecuted Array NODE");
+		response.getWriter().write("\nExecuted Array Node Size :");
 
 	}
 

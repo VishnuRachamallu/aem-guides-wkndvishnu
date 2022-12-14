@@ -39,6 +39,7 @@ public class QueryBuilderAPIUsageAdvanced extends SlingSafeMethodsServlet {
 
 		} catch (Exception e) {
 			// TODO: handle exception
+			response.getWriter().write(e.getMessage());
 		}
 
 		response.setContentType("application/json");
