@@ -12,6 +12,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.sling.api.resource.LoginException;
+import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.resource.ResourceResolverFactory;
 import org.json.JSONArray;
@@ -207,8 +208,10 @@ public class SearchServiceImplOmkar {
 
 	}
 
-	public List<String> getCategoriesAll() {
+	public ArrayNode getCategoriesAll() {
 		ObjectMapper objectMapper = new ObjectMapper();
+		ArrayNode categoriListAllChilds = objectMapper.createArrayNode();
+
 		try {
 			ResourceResolver resourceResolver = ResolverUtil.newResolver(resourceResolverFactory);
 			ArrayNode categoriList = objectMapper.createArrayNode();
@@ -220,9 +223,7 @@ public class SearchServiceImplOmkar {
 			Pattern pattern = Pattern.compile("[Vv][0-9]*-[0-9]*");
 
 			LOG.info("\nCateroryList size :" + categoriList.size());
-			
-			
-			
+
 			for (int i = 0; i < categoriList.size(); i++) {
 				JsonNode node = categoriList.get(i);
 				Matcher matcher = pattern.matcher(node.get("title").asText());
@@ -232,14 +233,33 @@ public class SearchServiceImplOmkar {
 					Iterator<Page> listChildren = rootPage.listChildren(null, true);
 					while (listChildren.hasNext()) {
 						String pagePath = listChildren.next().getPath();
-						children.add(listChildren.next().getPath());
-						LOG.info("\nChild path :" + pagePath);
+						children.add(pagePath);
+						// LOG.info("\nChild path :" + pagePath);
+
+						JsonNode jsonNode = objectMapper.createObjectNode();
+						Page childPage = resourceResolver.getResource(pagePath).adaptTo(Page.class);
+						((ObjectNode) jsonNode).put("title", childPage.getPageTitle());
+						((ObjectNode) jsonNode).put("path", childPage.getPath());
+						((ObjectNode) jsonNode).put("last modified date ",
+								childPage.getProperties().get("cq:lastModified", String.class));
+						((ObjectNode) jsonNode).put("last modified by ",
+								childPage.getProperties().get("cq:lastModifiedBy", String.class));
+						((ObjectNode) jsonNode).put("last published by",
+								childPage.getProperties().get("last PublishedBy", String.class));
+						((ObjectNode) jsonNode).put("last published",
+								childPage.getProperties().get("last Published", String.class));
+
+						categoriListAllChilds.add(jsonNode);
+
+						LOG.info("\nPATH in get direct child :" + childPage.getProperties().get("cq:lastModifiedBy", String.class));
+
 					}
 				}
 			}
 		} catch (Exception e) {
 			LOG.debug(e.getMessage());
 		}
-		return children;
+		return categoriListAllChilds;
+
 	}
 }

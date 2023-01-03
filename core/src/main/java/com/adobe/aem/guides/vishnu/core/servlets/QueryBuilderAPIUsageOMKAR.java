@@ -54,7 +54,10 @@ public class QueryBuilderAPIUsageOMKAR extends SlingSafeMethodsServlet {
 		 */
 
 		// This is for getCategoriesAll
-		searchServiceImplOmkar.getCategoriesAll();
+		ObjectMapper objectMapper = new ObjectMapper();
+		ArrayNode categoriListAllChilds = objectMapper.createArrayNode();
+		categoriListAllChilds=searchServiceImplOmkar.getCategoriesAll();
+		
 		response.getWriter().write("\nExecuted Array NODE");
 		response.getWriter().write("\nExecuted Array Node Size :");
 
